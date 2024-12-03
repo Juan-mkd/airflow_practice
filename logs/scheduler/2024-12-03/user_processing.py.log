@@ -2263,3 +2263,38 @@ NameError: name 'stor' is not defined
 [2024-12-03T18:19:03.472+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:19:03.472+0000] {dag.py:2585} INFO - Sync 1 DAGs
 [2024-12-03T18:19:03.502+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:19:03.502+0000] {dag.py:3340} INFO - Setting next_dagrun for practicional_dag to 2024-12-03T00:00:00+00:00, run_after=2024-12-04T00:00:00+00:00
 [2024-12-03T18:19:03.530+0000] {processor.py:176} INFO - Processing /opt/airflow/dags/user_processing.py took 1.281 seconds
+[2024-12-03T18:19:34.314+0000] {processor.py:154} INFO - Started process (PID=14020) to work on /opt/airflow/dags/user_processing.py
+[2024-12-03T18:19:34.315+0000] {processor.py:756} INFO - Processing file /opt/airflow/dags/user_processing.py for tasks to queue
+[2024-12-03T18:19:34.316+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:19:34.316+0000] {dagbag.py:537} INFO - Filling up the DagBag from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:19:35.006+0000] {processor.py:766} INFO - DAG(s) dict_keys(['practicional_dag']) retrieved from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:19:35.311+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:19:35.310+0000] {dag.py:2585} INFO - Sync 1 DAGs
+[2024-12-03T18:19:35.346+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:19:35.345+0000] {dag.py:3340} INFO - Setting next_dagrun for practicional_dag to 2024-12-03T00:00:00+00:00, run_after=2024-12-04T00:00:00+00:00
+[2024-12-03T18:19:35.370+0000] {processor.py:176} INFO - Processing /opt/airflow/dags/user_processing.py took 1.061 seconds
+[2024-12-03T18:20:05.556+0000] {processor.py:154} INFO - Started process (PID=14086) to work on /opt/airflow/dags/user_processing.py
+[2024-12-03T18:20:05.557+0000] {processor.py:756} INFO - Processing file /opt/airflow/dags/user_processing.py for tasks to queue
+[2024-12-03T18:20:05.558+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:20:05.558+0000] {dagbag.py:537} INFO - Filling up the DagBag from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:20:06.044+0000] {processor.py:766} INFO - DAG(s) dict_keys(['practicional_dag']) retrieved from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:20:06.227+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:20:06.227+0000] {dag.py:2585} INFO - Sync 1 DAGs
+[2024-12-03T18:20:06.249+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:20:06.249+0000] {dag.py:3340} INFO - Setting next_dagrun for practicional_dag to 2024-12-03T00:00:00+00:00, run_after=2024-12-04T00:00:00+00:00
+[2024-12-03T18:20:06.265+0000] {processor.py:176} INFO - Processing /opt/airflow/dags/user_processing.py took 0.714 seconds
+[2024-12-03T18:20:36.829+0000] {processor.py:154} INFO - Started process (PID=14142) to work on /opt/airflow/dags/user_processing.py
+[2024-12-03T18:20:36.830+0000] {processor.py:756} INFO - Processing file /opt/airflow/dags/user_processing.py for tasks to queue
+[2024-12-03T18:20:36.831+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:20:36.831+0000] {dagbag.py:537} INFO - Filling up the DagBag from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:20:37.353+0000] {processor.py:766} INFO - DAG(s) dict_keys(['practicional_dag']) retrieved from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:20:37.566+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:20:37.566+0000] {dag.py:2585} INFO - Sync 1 DAGs
+[2024-12-03T18:20:37.597+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:20:37.597+0000] {dag.py:3340} INFO - Setting next_dagrun for practicional_dag to 2024-12-03T00:00:00+00:00, run_after=2024-12-04T00:00:00+00:00
+[2024-12-03T18:20:37.620+0000] {processor.py:176} INFO - Processing /opt/airflow/dags/user_processing.py took 0.796 seconds
+[2024-12-03T18:21:08.317+0000] {processor.py:154} INFO - Started process (PID=14207) to work on /opt/airflow/dags/user_processing.py
+[2024-12-03T18:21:08.319+0000] {processor.py:756} INFO - Processing file /opt/airflow/dags/user_processing.py for tasks to queue
+[2024-12-03T18:21:08.320+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:21:08.319+0000] {dagbag.py:537} INFO - Filling up the DagBag from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:21:08.826+0000] {processor.py:766} INFO - DAG(s) dict_keys(['practicional_dag']) retrieved from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:21:09.023+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:21:09.023+0000] {dag.py:2585} INFO - Sync 1 DAGs
+[2024-12-03T18:21:09.049+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:21:09.049+0000] {dag.py:3340} INFO - Setting next_dagrun for practicional_dag to 2024-12-03T00:00:00+00:00, run_after=2024-12-04T00:00:00+00:00
+[2024-12-03T18:21:09.074+0000] {processor.py:176} INFO - Processing /opt/airflow/dags/user_processing.py took 0.762 seconds
+[2024-12-03T18:21:39.216+0000] {processor.py:154} INFO - Started process (PID=14272) to work on /opt/airflow/dags/user_processing.py
+[2024-12-03T18:21:39.217+0000] {processor.py:756} INFO - Processing file /opt/airflow/dags/user_processing.py for tasks to queue
+[2024-12-03T18:21:39.218+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:21:39.218+0000] {dagbag.py:537} INFO - Filling up the DagBag from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:21:39.706+0000] {processor.py:766} INFO - DAG(s) dict_keys(['practicional_dag']) retrieved from /opt/airflow/dags/user_processing.py
+[2024-12-03T18:21:39.890+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:21:39.889+0000] {dag.py:2585} INFO - Sync 1 DAGs
+[2024-12-03T18:21:39.912+0000] {logging_mixin.py:120} INFO - [2024-12-03T18:21:39.912+0000] {dag.py:3340} INFO - Setting next_dagrun for practicional_dag to 2024-12-03T00:00:00+00:00, run_after=2024-12-04T00:00:00+00:00
+[2024-12-03T18:21:39.928+0000] {processor.py:176} INFO - Processing /opt/airflow/dags/user_processing.py took 0.717 seconds
