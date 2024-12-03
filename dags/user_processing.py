@@ -1,81 +1,92 @@
 from airflow import DAG
-from datetime import datetime,timedelta
- 
-from airflow.providers.postgres.operators.postgres import PostgresOperator
-from airflow.providers.http.sensors.http import HttpSensor
-from airflow.providers.http.operators.http import SimpleHttpOperator
+from datetime import datetime
 from airflow.operators.python import PythonOperator
-from airflow.providers.postgres.hooks.postgres import PostgresHook
+import requests
+import zipfile
+import os
+import pandas as pd
 import json
-from pandas import json_normalize
- 
 
+# Ruta donde se descargarán los archivos
+DOWNLOAD_DIR = '/tmp/bybit_data'
+ZIP_FILE = f'{DOWNLOAD_DIR}/trades_BTC_2024-02-12.zip'
+JSONL_FILE = f'{DOWNLOAD_DIR}/trades_BTC_2024-02-12.jsonl'
 
-def _store_user():
-    hook = PostgresHook(postgres_conn_id='postgres')
-    hook.copy_expert(
-        sql="COPY users FROM stdin WITH DELIMITER as ','",
-        filename='/tmp/processed_user.csv'
-    )
- 
-def _process_user(ti):
-    user = ti.xcom_pull(task_ids="extract_user")
-    user = user['results'][0]
-    processed_user = json_normalize({
-        'firstname': user['name']['first'],
-        'lastname': user['name']['last'],
-        'country': user['location']['country'],
-        'username': user['login']['username'],
-        'password': user['login']['password'],
-        'email': user['email'] })
-    processed_user.to_csv('/tmp/processed_user.csv', index=None, header=False)  
-    
+def download_file(url):
+    """Descarga el archivo ZIP desde la URL proporcionada."""
+    try:
+        response = requests.get(url)
+        response.raise_for_status()  # Lanza un error si la solicitud falló
+        os.makedirs(DOWNLOAD_DIR, exist_ok=True)
+        with open(ZIP_FILE, 'wb') as file:
+            file.write(response.content)
+        print(f"Archivo descargado: {ZIP_FILE}")
+    except Exception as e:
+        print(f"Error al descargar el archivo: {e}")
+        raise
+
+def extract_zip():
+    """Descomprime el archivo ZIP descargado."""
+    try:
+        with zipfile.ZipFile(ZIP_FILE, 'r') as zip_ref:
+            zip_ref.extractall(DOWNLOAD_DIR)
+        print(f"Archivo extraído en: {DOWNLOAD_DIR}")
+    except Exception as e:
+        print(f"Error al extraer el archivo: {e}")
+        raise
+
+def list_files():
+    """Lista los archivos en el directorio de descarga."""
+    files = os.listdir(DOWNLOAD_DIR)
+    print("Archivos en el directorio:")
+    for file in files:
+        print(file)
+
+def read_jsonl_and_convert():
+    """Lee el archivo JSONL y lo convierte en un DataFrame, luego muestra los encabezados y las primeras filas."""
+    try:
+        with open(JSONL_FILE, 'r') as file:
+            data = [json.loads(line) for line in file]
+        
+        df = pd.json_normalize(data)
+        
+        # Mostrar los encabezados del DataFrame
+        print("Encabezados del DataFrame:")
+        print(df.columns.tolist())  # Esto mostrará los nombres de las columnas
+        
+        # Mostrar las primeras filas del DataFrame
+        print("Primeras filas del DataFrame:")
+        print(df.head())
+    except Exception as e:
+        print(f"Error al leer el archivo JSONL: {e}")
+        raise
+
 with DAG(
-    dag_id="practicional_dag",
-    start_date=datetime(2023, 1, 1),
+    dag_id="practicional_etl",
+    start_date=datetime(2024, 12, 3),
     schedule_interval="@daily",
     catchup=False
 ) as dag:
-    
-    create_table = PostgresOperator(
-        task_id='create_table',
-        postgres_conn_id='postgres',
-        sql='''
-            CREATE TABLE IF NOT EXISTS users (
-                firstname TEXT NOT NULL,
-                lastname TEXT NOT NULL,
-                country TEXT NOT NULL,
-                username TEXT NOT NULL,
-                password TEXT NOT NULL,
-                email TEXT NOT NULL
-            );
-        ''')
-        
- 
-    is_api_available = HttpSensor(
-        task_id='is_api_available',
-        http_conn_id='user_api',
-        endpoint='api/'
+
+    download_data = PythonOperator(
+        task_id='download_data',
+        python_callable=download_file,
+        op_kwargs={'url': 'https://github.com/sferez/BybitMarketData/raw/main/data/BTC/2024-02-12/trades_BTC_2024-02-12.zip'}
     )
 
-    
-    extract_user = SimpleHttpOperator(
-        task_id='extract_user',
-        http_conn_id='user_api',
-        endpoint='api/',
-        method='GET',
-        response_filter=lambda response: json.loads(response.text),
-        log_response=True
+    extract_data = PythonOperator(
+        task_id='extract_data',
+        python_callable=extract_zip
     )
-    
-    process_user = PythonOperator(
-        task_id='process_user',
-        python_callable=_process_user
+
+    list_data_files = PythonOperator(
+        task_id='list_data_files',
+        python_callable=list_files
     )
-    
-    store_user = PythonOperator(
-        task_id='store_user',
-        python_callable=_store_user
+
+    read_jsonl = PythonOperator(
+        task_id='read_jsonl',
+        python_callable=read_jsonl_and_convert
     )
-    
-    create_table>>is_api_available>>extract_user>>process_user>>store_user
+
+    download_data >> extract_data >> list_data_files >> read_jsonl
