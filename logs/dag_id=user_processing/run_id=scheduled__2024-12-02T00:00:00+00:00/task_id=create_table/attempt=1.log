@@ -1,0 +1,33 @@
+[2024-12-03T16:45:06.897+0000] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: user_processing.create_table scheduled__2024-12-02T00:00:00+00:00 [queued]>
+[2024-12-03T16:45:06.915+0000] {taskinstance.py:1165} INFO - Dependencies all met for <TaskInstance: user_processing.create_table scheduled__2024-12-02T00:00:00+00:00 [queued]>
+[2024-12-03T16:45:06.916+0000] {taskinstance.py:1362} INFO - 
+--------------------------------------------------------------------------------
+[2024-12-03T16:45:06.916+0000] {taskinstance.py:1363} INFO - Starting attempt 1 of 1
+[2024-12-03T16:45:06.916+0000] {taskinstance.py:1364} INFO - 
+--------------------------------------------------------------------------------
+[2024-12-03T16:45:06.936+0000] {taskinstance.py:1383} INFO - Executing <Task(PostgresOperator): create_table> on 2024-12-02 00:00:00+00:00
+[2024-12-03T16:45:06.942+0000] {standard_task_runner.py:55} INFO - Started process 1025 to run task
+[2024-12-03T16:45:06.948+0000] {standard_task_runner.py:82} INFO - Running: ['***', 'tasks', 'run', 'user_processing', 'create_table', 'scheduled__2024-12-02T00:00:00+00:00', '--job-id', '3', '--raw', '--subdir', 'DAGS_FOLDER/user_processing.py', '--cfg-path', '/tmp/tmp9szi3yv_']
+[2024-12-03T16:45:06.951+0000] {standard_task_runner.py:83} INFO - Job 3: Subtask create_table
+[2024-12-03T16:45:07.054+0000] {task_command.py:376} INFO - Running <TaskInstance: user_processing.create_table scheduled__2024-12-02T00:00:00+00:00 [running]> on host 305bd4985967
+[2024-12-03T16:45:07.156+0000] {taskinstance.py:1592} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=user_processing
+AIRFLOW_CTX_TASK_ID=create_table
+AIRFLOW_CTX_EXECUTION_DATE=2024-12-02T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2024-12-02T00:00:00+00:00
+[2024-12-03T16:45:07.170+0000] {base.py:71} INFO - Using connection ID 'postgres' for task execution.
+[2024-12-03T16:45:07.176+0000] {sql.py:315} INFO - Running statement: 
+            CREATE TABLE IF NOT EXISTS users (
+                firstname TEXT NOT NULL,
+                lastname TEXT NOT NULL,
+                country TEXT NOT NULL,
+                username TEXT NOT NULL,
+                password TEXT NOT NULL,
+                email TEXT NOT NULL
+            );
+        , parameters: None
+[2024-12-03T16:45:07.202+0000] {taskinstance.py:1406} INFO - Marking task as SUCCESS. dag_id=user_processing, task_id=create_table, execution_date=20241202T000000, start_date=20241203T164506, end_date=20241203T164507
+[2024-12-03T16:45:07.252+0000] {local_task_job.py:164} INFO - Task exited with return code 0
+[2024-12-03T16:45:07.330+0000] {local_task_job.py:273} INFO - 1 downstream tasks scheduled from follow-on schedule check
